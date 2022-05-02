@@ -1,6 +1,6 @@
 # WireGurad GUI
 
-This project was created because of the need of an client to start WireGuard without the need of admin rights.\
+This project was created because of the need of a client to start WireGuard without the need of admin rights.\
 It was developed during my work at the [Regionales Hochschul Rechenzentrum Kaiserslautern (RHRK)](https://www.rhrk.uni-kl.de/).
 
 ## Requierments
@@ -19,4 +19,4 @@ It was developed during my work at the [Regionales Hochschul Rechenzentrum Kaise
 
 ## Disclaimer
 
-This project is independent form the original WireGuard project.
+This project is independent from the original WireGuard project.
