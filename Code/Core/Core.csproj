@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <AssemblyName>Core</AssemblyName>
+    <RootNamespace>WireGuard.Core</RootNamespace>
+    <UseWPF>true</UseWPF>
+    <Authors>RHRK</Authors>
+    <Product>Core</Product>
+    <Company>TU Kaiserslautern</Company>
+    <Copyright>Copyright © TU Kaiserslautern</Copyright>
+    <PackageProjectUrl>https://www.rhrk.uni-kl.de/</PackageProjectUrl>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <FileVersion>1.1.0.0</FileVersion>
+    <Version>1.1.0</Version>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NamedPipeServerStream.NetFrameworkVersion" Version="1.1.8" />
+    <PackageReference Include="System.IO.Pipes.AccessControl" Version="5.0.0" />
+  </ItemGroup>
+
+</Project>

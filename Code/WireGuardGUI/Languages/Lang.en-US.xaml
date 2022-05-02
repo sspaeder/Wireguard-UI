@@ -1,0 +1,75 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <!-- Labels -->
+    <sys:String x:Key="LBL_SERVICE_ERROR">The WireGuardUIService is not running or existent. Please contact your administrator.</sys:String>
+    <sys:String x:Key="LBL_CONNECTING">Connecting to service...</sys:String>
+    <sys:String x:Key="LBL_STATS_DEACT">The statistics where deactivated by your administrator.</sys:String>
+    <sys:String x:Key="LBL_COMING_SOON">This feature is coming soon.</sys:String>
+    
+    <sys:String x:Key="LBL_CM_CLOSE">Close</sys:String>
+    <sys:String x:Key="LBL_CM_DISCON">Disconnect</sys:String>
+    <sys:String x:Key="LBL_CM_CON">Connect</sys:String>
+    
+    <sys:String x:Key="LBL_SET_ACTIVATE">Activate</sys:String>
+    <sys:String x:Key="LBL_SET_CONFIG">Config-File</sys:String>
+    <sys:String x:Key="LBL_SET_GRP_SoB">Start on boot</sys:String>
+    <sys:String x:Key="LBL_SET_GRP_SoL">Start on logon</sys:String>
+    <sys:String x:Key="LBL_SET_DEF_CONF">Default Config-File</sys:String>
+    <sys:String x:Key="LBL_SET_RESTORE">Restore session</sys:String>
+
+    <sys:String x:Key="TI_LOG_CLIENT">Clientlog</sys:String>
+    <sys:String x:Key="TI_LOG_SERVICE">Servicelog</sys:String>
+    <sys:String x:Key="TI_LOG_TUNNEL">Tunnellog</sys:String>
+
+    <sys:String x:Key="LBL_INF_UNSUPPORTED_CHARS">
+        Your filename contains invalid characters. This could lead to errors. 
+        All invalid characters will be replaced.
+        Do You wish to proceed?
+    </sys:String>
+    <sys:String x:Key="LBL_INF_UNSUPPORTED_CHARS_CAPTION">Unsupported characters found</sys:String>
+
+    <sys:String x:Key="LBL_SET_EMPTY">(Empty)</sys:String>
+    
+    <sys:String x:Key="BTN_ADD_CONFIG">Add config file</sys:String>
+    <sys:String x:Key="BTN_REMOVE_CONFIG">Remoce config</sys:String>
+    <sys:String x:Key="BTN_SETTINGS">Settings</sys:String>
+    
+    <sys:String x:Key="BTN_START_START">Start</sys:String>
+    <sys:String x:Key="BTN_START_STOP">Stop</sys:String>
+
+    <sys:String x:Key="BTN_SET_APPLY">Apply</sys:String>
+    <sys:String x:Key="BTN_SET_ABORT">Abort</sys:String>
+
+    <sys:String x:Key="BTN_FILE_IMPORT">Import from file</sys:String>
+
+    <sys:String x:Key="WIN_SETTINGS">Settings</sys:String>
+    
+    <sys:String x:Key="TI_HEADER_STAT">Statistics</sys:String>
+    <sys:String x:Key="TI_HEADER_LOG">Log</sys:String>
+
+    <!-- Info messages -->
+    <sys:String x:Key="INFO_NO_CONFIG">No configurations available</sys:String>
+    <sys:String x:Key="INFO_NO_WORK">No active tunnel</sys:String>
+    <sys:String x:Key="INFO_VPN_STILL_RUNNING">The VPN is still running</sys:String>
+    
+    <!-- Error messages -->
+    <sys:String x:Key="ERR_GENERIC">An error has been occured.</sys:String>
+    <sys:String x:Key="ERR_TIMEOUT">Unable to connect to service. The Programm will be shutdown.</sys:String>
+    
+    <sys:String x:Key="ERR_NO_WIREGUARD">The service was unable to detect Wireguard.
+        Please ensure that Wireguard is properly installed on your system.
+    </sys:String>
+
+    <sys:String x:Key="ERR_NO_KIOSK_MODE">Could not apply kioskmode because no conifg is found!</sys:String>
+    <sys:String x:Key="ERR_NO_PLUGIN">No plugin found!</sys:String>
+    <sys:String x:Key="ERR_INT_ERR_PLUGIN">There was in error to open the plugin or in the plugin self.</sys:String>
+
+    <sys:String x:Key="ERR_CLIENT_RUNNING">The application is already running.</sys:String>
+    <sys:String x:Key="ERR_CLIENT_IN_USE">The application is already in use from user ::USER::.</sys:String>
+
+    <sys:String x:Key="ERR_UNHANDELD_EX">An unhandeld exception occured!</sys:String>
+    <sys:String x:Key="ERR_MB_UNHANDELD">Unhandeld exception</sys:String>
+    
+</ResourceDictionary>

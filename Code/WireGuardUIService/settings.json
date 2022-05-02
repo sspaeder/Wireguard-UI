@@ -1,0 +1,11 @@
+{
+  "StartOnBoot": false,
+  "StartConfigName": null,
+  "DefaultConfig": null,
+  "RestoreSession": false,
+  "LogLevel": "Info",
+  "TimerInterval": 5000,
+  "RunInKioskMode": false,
+  "UserAvailableSettings": null,
+  "WgIpcApi": "WgIpc"
+}
