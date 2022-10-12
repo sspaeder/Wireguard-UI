@@ -6,11 +6,11 @@
    viewBox="0 0 400 400"
    xml:space="preserve"
    id="svg35"
-   sodipodi:docname="Wireguard_Online_new.svg"
+   sodipodi:docname="Wireguard_Online.svg"
    inkscape:version="1.1.2 (b8e25be833, 2022-02-05)"
-   inkscape:export-filename="C:\Users\spaeder\Pictures\WG_Logo_Test\WG_24.png"
-   inkscape:export-xdpi="5.7600002"
-   inkscape:export-ydpi="5.7600002"
+   inkscape:export-filename="F:\GitHub\Wireguard UI\Images\PNG\Online_WG_96.png"
+   inkscape:export-xdpi="23.040001"
+   inkscape:export-ydpi="23.040001"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -34,7 +34,7 @@
      id="namedview37"
      showgrid="false"
      inkscape:zoom="1.0375"
-     inkscape:cx="139.75904"
+     inkscape:cx="140.24096"
      inkscape:cy="221.20482"
      inkscape:window-x="-9"
      inkscape:window-y="-9"
@@ -114,6 +114,6 @@
        transform="matrix(1.3034001,0,0,1.3034001,446.05933,-52.224246)"><tspan
          x="-226.50586"
          y="331.80541"
-         id="tspan12778"><tspan
+         id="tspan70"><tspan
            style="font-weight:bold;font-family:Arial;-inkscape-font-specification:'Arial Bold'"
-           id="tspan12776">UI</tspan></tspan></text></g></svg>
+           id="tspan68">UI</tspan></tspan></text></g></svg>

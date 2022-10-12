@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Animation;
 
-namespace WireGuard.Core
+namespace WireGuard.Core.Classes
 {
     /// <summary>
     /// Class for Anmation helper functions

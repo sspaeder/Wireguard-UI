@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WireGuard.Core;
+using WireGuard.Core.Classes;
 using WireGuard.Core.Messages;
 
 namespace WireGuard.WireGuardUIService.Classes.WgApi

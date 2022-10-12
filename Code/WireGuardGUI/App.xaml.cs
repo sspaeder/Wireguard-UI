@@ -9,6 +9,9 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using WireGuard.Core;
+using WireGuard.Core.Messages;
+using WireGuard.Core.ViewModels;
 using WireGuard.GUI.Classes;
 
 namespace WireGuard.GUI
@@ -29,6 +32,16 @@ namespace WireGuard.GUI
         Mutex mutex;
 
         /// <summary>
+        /// Settings for the application
+        /// </summary>
+        SettingsViewModel settings = null;
+
+        /// <summary>
+        /// Client to connect to the service
+        /// </summary>
+        Client client;
+
+        /// <summary>
         /// Method gets called before the MainWindow is shown
         /// </summary>
         /// <param name="e"></param>
@@ -36,10 +49,23 @@ namespace WireGuard.GUI
         {
             try 
             {
-                Core.ViewModels.SettingsViewModel.SetCurrentSettings(Core.ViewModels.SettingsViewModel.LoadSettings());
+                client = new Client();
+                client.Connect();
+
+                client.Send(new SettingsMessage());
+                ResultMessage rm = (ResultMessage)client.Recive();
+
+                if(rm.Error == 0)
+                {
+                    settings = System.Text.Json.JsonSerializer.Deserialize<SettingsViewModel>(rm.ErrorMsg, new System.Text.Json.JsonSerializerOptions() { ReadCommentHandling = System.Text.Json.JsonCommentHandling.Skip });
+                }
+                else
+                {
+                    throw new Exception($"Error recieving the settings.\n{rm.ErrorMsg}");
+                }
 
                 Core.LogManager.Init();
-                Core.LogManager.SetLogLvlFromString(Core.ViewModels.SettingsViewModel.GetCurrent().LogLevel);
+                Core.LogManager.SetLogLvlFromString(settings.LogLevel);
                 Core.LogManager.Register(new Core.Log2File("Log.txt", $@"C:\Users\{Environment.UserName}\AppData\Local\Wireguard GUI"));
 
                 mutex = new Mutex(false, APP_ID);
@@ -51,7 +77,7 @@ namespace WireGuard.GUI
                     Environment.Exit(0);
                 }
 
-                base.OnStartup(e);
+                //base.OnStartup(e);
 
                 StartApplication();
             }
@@ -59,6 +85,8 @@ namespace WireGuard.GUI
             {
                 Core.LogManager.Error("Error starting the application!");
                 Core.LogManager.Error(ex);
+
+                MessageBox.Show("Error starting the application!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -80,13 +108,16 @@ namespace WireGuard.GUI
         /// </summary>
         private void StartApplication()
         {
-            Core.LogManager.Debug($"Setting-Debug-Level: {Core.ViewModels.SettingsViewModel.GetCurrent().LogLevel}", nameof(App));
+            Core.LogManager.Debug($"Setting-Debug-Level: {settings.LogLevel}", nameof(App));
             Core.LogManager.Debug($"Applied-Debug-Level: {Enum.GetName(typeof(Core.LogLevel), Core.LogManager.LogLevel)}", nameof(App));
 
             string user = Environment.UserName;
 
-            Directory.CreateDirectory(Core.Path.DATA_FOLDER);
-            File.WriteAllText(Core.Path.LOCK_FILE, $"{user}");
+            Directory.CreateDirectory(Core.Classes.Path.DATA_FOLDER);
+            File.WriteAllText(Core.Classes.Path.LOCK_FILE, $"{user}");
+
+            MainWindow mw = new MainWindow(client, settings);
+            mw.Show();
         }
 
         /// <summary>
@@ -94,13 +125,13 @@ namespace WireGuard.GUI
         /// </summary>
         private void ShowApplication()
         {
-            if(!File.Exists(Core.Path.LOCK_FILE))
+            if(!File.Exists(Core.Classes.Path.LOCK_FILE))
             {
                 MessageBox.Show(Res.GetStr("ERR_CLIENT_RUNNING"));
                 Environment.Exit(0);
             }
             
-            string[] data = File.ReadAllLines(Core.Path.LOCK_FILE);
+            string[] data = File.ReadAllLines(Core.Classes.Path.LOCK_FILE);
             string user = data[0];
 
             if(user != Environment.UserName)

@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
+using WireGuard.Core.Classes;
 
 namespace WireGuard.Core.PlugIn
 {

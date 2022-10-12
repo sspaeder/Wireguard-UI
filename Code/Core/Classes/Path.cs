@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WireGuard.Core
+namespace WireGuard.Core.Classes
 {
     /// <summary>
     /// Class with all paths
@@ -14,7 +14,7 @@ namespace WireGuard.Core
         /// <summary>
         /// Path to the main folder
         /// </summary>
-        public static readonly string BASE_PATH = String.Join("\\",System.Reflection.Assembly.GetCallingAssembly().Location.Split("\\")[0..^2]);
+        public static readonly string BASE_PATH = AppContext.BaseDirectory;
 
         /// <summary>
         /// Path to the lockfile
@@ -24,12 +24,12 @@ namespace WireGuard.Core
         /// <summary>
         /// Path to the settings.json
         /// </summary>
-        public static readonly string SETTINGS = $@"{BASE_PATH}\Service\settings.json";
+        public static readonly string SETTINGS = $@"{BASE_PATH}\settings.json";
 
         /// <summary>
         /// Location of the server log file
         /// </summary>
-        public static readonly string SERVER_LOG = @$"{BASE_PATH}\Service\Log.txt";
+        public static readonly string SERVER_LOG = @$"{BASE_PATH}\Log.txt";
 
         /// <summary>
         /// Name of the Wireguard GUI service
@@ -85,7 +85,5 @@ namespace WireGuard.Core
         /// Lockfile for the application
         /// </summary>
         public static readonly string LOCK_FILE = $@"{DATA_FOLDER}\Lock.lock";
-
-
     }
 }

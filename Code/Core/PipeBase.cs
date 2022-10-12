@@ -3,7 +3,7 @@ using System.IO;
 using System.IO.Pipes;
 using System.Security.Principal;
 using System.Text;
-using WireGuard.Core.Messages;
+using WireGuard.Core.Classes;
 
 namespace WireGuard.Core
 {

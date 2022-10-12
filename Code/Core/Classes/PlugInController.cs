@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace WireGuard.Core
+namespace WireGuard.Core.Classes
 {
     /// <summary>
     /// Class for the loading of plugins
@@ -56,20 +56,19 @@ namespace WireGuard.Core
         /// Loads plugins from the specified file
         /// </summary>
         /// <param name="file">File to load the plugins from</param>
-        public void Load(string file)
+        public void Load(string file = null, object[] args = null)
         {
-            if (String.IsNullOrEmpty(file))
-                return;
-
-            if (!System.IO.File.Exists(file))
-                return;
-
             Assembly dll = null;
-            
-            if (String.IsNullOrEmpty(file.Trim()))
-                dll = Assembly.GetCallingAssembly();
-            else
+
+            if (file != null)
+            {
+                if (!System.IO.File.Exists(file))
+                    throw new System.IO.FileNotFoundException(file);
+
                 dll = Assembly.LoadFrom(file);
+            }
+            else
+                dll = Assembly.GetCallingAssembly();
 
             // Get all types in the assembly which inherit from the specified type
             Type[] types = dll.GetTypes().Where(t => plugInType.IsAssignableFrom(t) && t.IsAbstract == false && t.IsClass).ToArray();
@@ -77,7 +76,12 @@ namespace WireGuard.Core
             // Loop throug the types and try to create an object from them
             foreach (Type t in types)
             {
-                object instance = Activator.CreateInstance(t);
+                object instance = null;
+
+                if (args == null)
+                    instance = Activator.CreateInstance(t);
+                else
+                    instance = Activator.CreateInstance(t, args);
 
                 if (instance != null)
                     lstLoaded.Add((T)instance);
@@ -86,12 +90,16 @@ namespace WireGuard.Core
             }
         }
 
+#nullable enable
+
         /// <summary>
         /// Fins an object with the specfied conditions or returns null
         /// </summary>
         /// <param name="predicate">Predicate function to compare the objects</param>
         /// <returns>Returns <see cref="T"/> or NULL</returns>
         public T? Find(Predicate<T> predicate) => lstLoaded.Find(predicate);
+
+#nullable disable
 
         #region Interface methods
 
@@ -115,7 +123,7 @@ namespace WireGuard.Core
         /// </summary>
         /// <param name="index">index to retrief</param>
         /// <returns><see cref="T"/></returns>
-        public T this [int index] => lstLoaded[index];
+        public T this[int index] => lstLoaded[index];
 
         #endregion
     }

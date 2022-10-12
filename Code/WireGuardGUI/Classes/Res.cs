@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WireGuard.GUI
+namespace WireGuard.GUI.Classes
 {
     /// <summary>
     /// Class for easy handel of ressources
@@ -16,7 +16,7 @@ namespace WireGuard.GUI
         /// </summary>
         /// <param name="key">Key of the string</param>
         /// <returns>Value of key or in case the key is not existend the key itself</returns>
-        public static string GetStr(string key) => 
-            App.Current.Resources.Contains(key) ? (string)App.Current.Resources[key] : key;
+        public static string GetStr(string key) =>
+            System.Windows.Application.Current.Resources.Contains(key) ? (string)System.Windows.Application.Current.Resources[key] : key;
     }
 }

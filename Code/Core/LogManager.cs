@@ -69,13 +69,13 @@ namespace WireGuard.Core
         /// Logs a warning
         /// </summary>
         /// <param name="message">warning message to log</param>
-        public static void Warning(string message) => Warning(message);
+        public static void Warning(string message) => Log(LogLevel.Warning, message);
 
         /// <summary>
         /// Logs an error
         /// </summary>
         /// <param name="message">error message to log</param>
-        public static void Error(string message) => Error(message);
+        public static void Error(string message) => Log(LogLevel.Error, message);
 
         /// <summary>
         /// Logs an exception

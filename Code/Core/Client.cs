@@ -1,4 +1,5 @@
-﻿using System.IO.Pipes;
+﻿using System;
+using System.IO.Pipes;
 
 namespace WireGuard.Core
 {
@@ -24,9 +25,11 @@ namespace WireGuard.Core
         /// </summary>
         public void Connect()
         {
+            if (!System.IO.File.Exists($@"\\.\\pipe\\{PIPE_NAME}"))
+                throw new Exception("No server is running!");
+
             //Creates the client and trys to connect
             pipe = new NamedPipeClientStream(".", PIPE_NAME, PipeDirection.InOut, PipeOptions.None);
-
             stream = pipe;
 
             pipe.Connect(15*1000);

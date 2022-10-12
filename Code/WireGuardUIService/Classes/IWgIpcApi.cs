@@ -1,4 +1,4 @@
-﻿using WireGuard.Core.Messages;
+﻿using WireGuard.Core;
 
 namespace WireGuard.WireGuardUIService.Classes
 {

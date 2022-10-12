@@ -44,7 +44,6 @@ namespace WireGuard.Core
 
         #endregion
 
-
         #region Methods
 
         /// <summary>

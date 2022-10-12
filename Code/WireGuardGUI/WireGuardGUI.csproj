@@ -6,15 +6,15 @@
     <UseWPF>true</UseWPF>
     <ApplicationIcon>Images\ICO\Wireguard.ico</ApplicationIcon>
     <RootNamespace>WireGuard.GUI</RootNamespace>
-    <Authors>RHRK</Authors>
-    <Company>TU Kaiserslautern</Company>
+    <Authors>Sebastian Späder</Authors>
+    <Company></Company>
     <Product>WireGuardUI</Product>
-    <Copyright>Copyright © TU Kaiserslautern</Copyright>
-    <PackageProjectUrl>https://www.rhrk.uni-kl.de/</PackageProjectUrl>
+    <Copyright></Copyright>
+    <PackageProjectUrl></PackageProjectUrl>
     <StartupObject>WireGuard.GUI.App</StartupObject>
-    <AssemblyVersion>1.1.0.0</AssemblyVersion>
-    <FileVersion>1.1.0.0</FileVersion>
-    <Version>1.1.0</Version>
+    <AssemblyVersion>1.1.2.0</AssemblyVersion>
+    <FileVersion>1.1.2.0</FileVersion>
+    <Version>1.1.2</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -28,18 +28,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Fonts\PT Sans Bold Italic.ttf" />
-    <None Remove="Fonts\PT Sans Bold.ttf" />
-    <None Remove="Fonts\PT Sans Italic.ttf" />
-    <None Remove="Fonts\PT Sans Narrow Bold.ttf" />
-    <None Remove="Fonts\PT Sans Narrow.ttf" />
-    <None Remove="Fonts\PT Sans Regular.TTF" />
     <None Remove="Images\ICO\Wireguard.ico" />
     <None Remove="Images\ICO\Wireguard_online.ico" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="FontAwesome5" Version="2.1.6" />
+    <PackageReference Include="FontAwesome5" Version="2.1.11" />
     <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.1.0" />
     <PackageReference Include="System.ServiceProcess.ServiceController" Version="6.0.0" />
   </ItemGroup>
@@ -49,12 +43,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Fonts\PT Sans Bold Italic.ttf" />
-    <Resource Include="Fonts\PT Sans Bold.ttf" />
-    <Resource Include="Fonts\PT Sans Italic.ttf" />
-    <Resource Include="Fonts\PT Sans Narrow Bold.ttf" />
-    <Resource Include="Fonts\PT Sans Narrow.ttf" />
-    <Resource Include="Fonts\PT Sans Regular.TTF" />
     <Resource Include="Images\ICO\Wireguard.ico" />
     <Resource Include="Images\ICO\Wireguard_online.ico" />
   </ItemGroup>

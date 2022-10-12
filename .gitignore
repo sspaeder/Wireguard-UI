@@ -1,0 +1,8 @@
+# Ignore build folders
+bin/
+
+#Ignore object folders
+obj/
+
+# Ignore IDE specific folders
+.vs/

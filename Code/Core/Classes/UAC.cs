@@ -1,6 +1,6 @@
 ﻿using System.Security.Principal;
 
-namespace WireGuard.Core
+namespace WireGuard.Core.Classes
 {
     /// <summary>
     /// Class for the user access identities

@@ -3,8 +3,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using WireGuard.Core;
+using WireGuard.Core.Classes;
 using WireGuard.Core.Messages;
 using WireGuard.Core.ViewModels;
+using WireGuard.GUI.Classes;
 using WireGuard.GUI.Windows;
 
 namespace WireGuard.GUI.ViewModels
@@ -42,24 +44,14 @@ namespace WireGuard.GUI.ViewModels
         ImportViewModel import;
 
         /// <summary>
+        /// Viewmodel for the log files
+        /// </summary>
+        LogViewModel log;
+
+        /// <summary>
         /// Variable to check if the client is currently connecting
         /// </summary>
         bool isConnecting = false;
-
-        /// <summary>
-        /// Variable for the content of the client log
-        /// </summary>
-        string clientLog;
-
-        /// <summary>
-        /// Variable for the content of the server log
-        /// </summary>
-        string serverLog;
-
-        /// <summary>
-        /// Variable for the content of the wireguard log
-        /// </summary>
-        string wireguardLog;
 
         /// <summary>
         /// Gets the current running config
@@ -73,15 +65,15 @@ namespace WireGuard.GUI.ViewModels
         /// <summary>
         /// Constructor
         /// </summary>
-        public MainViewModel(MainWindow mainWindow)
+        public MainViewModel(MainWindow mainWindow, Client client, SettingsViewModel settings)
         {
             //Initialize data
             window = mainWindow;
 
-            client = new Client();
-            Settings = SettingsViewModel.GetCurrent();
+            this.client = client;
+            Settings = settings;
 
-            Collection = new ConfigCollectionViewModel(client);
+            Collection = new ConfigCollectionViewModel(client, settings);
             Collection.ErrorOccured += Collection_ErrorOccured;
             Collection.ConfigStatusChanged += Collection_ConfigStatusChanged;
             Collection.InvalidCharacters += Collection_InvalidCharacters;
@@ -91,13 +83,14 @@ namespace WireGuard.GUI.ViewModels
                 FileImportAction = new Action(() => { ImportConfig(); })
             };
 
+            log = new LogViewModel(client);
+
             //Initialize commands
             CloseCmd = new RelayCommand(CloseCmdMethod);
             ShowWindowCmd = new RelayCommand(ShowWindowMethod);
             AddConfigCmd = new RelayCommand(AddConfigMehtod);
             RemoveConfigCmd = new RelayCommand(RemoveConfigMethod, RemoveConfigPredicate);
             ShowSettings = new RelayCommand(ShowSettingsMethod);
-            RefreshLog = new RelayCommand(RefreshLogMethod);
         }
 
         /// <summary>
@@ -155,9 +148,10 @@ namespace WireGuard.GUI.ViewModels
                 //Connect to client
                 IsConnecting = true;
 
+                client.Send(new StatusMessage());
+
                 //Connect and recive status message
                 Message msg = await Task.Run(() => {
-                    client.Connect();
                     return client.Recive();
                 });
 
@@ -406,6 +400,9 @@ namespace WireGuard.GUI.ViewModels
         {
             try
             {
+                if (MessageBox.Show(Res.GetStr("QST_DELETE_CONFIG"), Res.GetStr("LBL_DELETE_WINDOW"), MessageBoxButton.YesNo) == MessageBoxResult.No)
+                    return;
+
                 Message msg = await Task.Run(() => {
                     client.Send(new RemoveMessage() { Name = Selected.Name });
                     return client.Recive();
@@ -510,34 +507,6 @@ namespace WireGuard.GUI.ViewModels
             }
         }
 
-        /// <summary>
-        /// Command to refresh the log views
-        /// </summary>
-        public RelayCommand RefreshLog { get; }
-
-        /// <summary>
-        /// Method to call when the RefreshLog command is used
-        /// </summary>
-        /// <param name="parameter"></param>
-        private async void RefreshLogMethod(object parameter)
-        {
-            ClientLog = System.IO.File.ReadAllText(Path.USER_LOG.Replace("<USER>", Environment.UserName));
-            ServerLog = System.IO.File.ReadAllText(Path.SERVER_LOG);
-
-            ResultMessage rm = await Task.Run(() => {
-                client.Send(new LogContentMessage());
-                return (ResultMessage)client.Recive();
-            });
-
-            if(rm.Error != 0)
-            {
-                RaiseErrorEvent(this, null, rm.ErrorMsg);
-                return;
-            }
-
-            WireguardLog = rm.ErrorMsg;
-        }
-
         #endregion
 
         #region Propertys
@@ -582,6 +551,11 @@ namespace WireGuard.GUI.ViewModels
         public SettingsViewModel Settings { get => settings; private set { settings = value; NotifyPropertyChanged("Settings"); } }
 
         /// <summary>
+        /// Gets the log
+        /// </summary>
+        public LogViewModel Log { get => log; }
+
+        /// <summary>
         /// Gets the version of the current assembly
         /// </summary>
         public string Version 
@@ -596,21 +570,6 @@ namespace WireGuard.GUI.ViewModels
                 return $"v{v.Major}.{v.Minor}.{v.Build}";
             }
         }
-
-        /// <summary>
-        /// Content of the client log file
-        /// </summary>
-        public string ClientLog { get => clientLog; set { clientLog = value; NotifyPropertyChanged("ClientLog"); } }
-
-        /// <summary>
-        /// Content of the server log file
-        /// </summary>
-        public string ServerLog { get => serverLog; set { serverLog = value; NotifyPropertyChanged("ServerLog"); } }
-
-        /// <summary>
-        /// Content of the wireguard log file
-        /// </summary>
-        public string WireguardLog { get => wireguardLog; set { wireguardLog = value; NotifyPropertyChanged("WireguardLog"); } }
 
         /// <summary>
         /// Gets a value if the system is currently processing the settings

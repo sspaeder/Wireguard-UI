@@ -13,6 +13,9 @@
     <Compile Update="Windows\ImportWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Windows\LogWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Windows\SettingsWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -30,10 +33,10 @@
     <Page Update="Styles\ControlStyles.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Styles\Fonts.xaml">
+    <Page Update="Windows\ImportWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Windows\ImportWindow.xaml">
+    <Page Update="Windows\LogWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Windows\SettingsWindow.xaml">

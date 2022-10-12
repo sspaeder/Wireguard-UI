@@ -6,6 +6,6 @@
   "LogLevel": "Info",
   "TimerInterval": 5000,
   "RunInKioskMode": false,
-  "UserAvailableSettings": null,
+  "UserAvailableSettings": [ "StartOnBoot", "DefaultConfig", "RestoreSession" ],
   "WgIpcApi": "WgIpc"
 }

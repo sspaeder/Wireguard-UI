@@ -11,7 +11,7 @@
         xmlns:tb="http://www.hardcodet.net/taskbar"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=vm:MainViewModel}"
-        Title="RHRK Wireguard Client" Height="400" Width="500" MinHeight="400" MinWidth="500" FontFamily="{StaticResource PTSans}">
+        Title="WireguardUI Client" Height="400" Width="500" MinHeight="400" MinWidth="500">
     <Window.Resources>
         <!-- Converter -->
         <conv:BoolToVisibilityConverter x:Key="BoolToVisConverter" />
@@ -22,7 +22,6 @@
 
         <!-- Window element styles -->
         <Style TargetType="MenuItem" x:Key="Con_Discon">
-            <Setter Property="FontFamily" Value="{StaticResource PTSans}" />
             <Setter Property="Header" Value="{DynamicResource LBL_CM_DISCON}" />
             <Setter Property="Command" Value="{Binding RunningConfig.StartStopCmd}" />
             <Style.Triggers>
@@ -35,14 +34,13 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
-        
+
         <!-- Objects -->
         <ContextMenu x:Key="tbMenue">
             <MenuItem Style="{StaticResource Con_Discon}"/>
             <Separator />
             <MenuItem Header="{DynamicResource LBL_CM_CLOSE}" 
-                                  FontFamily="{StaticResource PTSans}"
-                                  Command="{Binding CloseCmd}"/>
+                      Command="{Binding CloseCmd}"/>
         </ContextMenu>
 
     </Window.Resources>
@@ -88,6 +86,14 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" ToolTip="{DynamicResource BTN_SETTINGS}">
+                    <Button Command="{Binding Log.ShowWindow}"
+                            ToolTip="{DynamicResource TT_LOG_WIN}"
+                            Margin="5,0">
+                        <Button.Content>
+                            <fa5:ImageAwesome Icon="Solid_Microscope" Margin="2" />
+                        </Button.Content>
+                    </Button>
+
                     <Button Command="{Binding ShowSettings}"
                             Visibility="{Binding Settings.UserAvailableSettings, Converter={StaticResource USVConverter}}">
                         <Button.Content>
@@ -113,7 +119,7 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding DisplayName}" 
-                                       FontFamily="{StaticResource PTSans Bold}"
+                                       FontWeight="DemiBold"
                                        FontSize="14"
                                        Padding="5"/>
                         </DataTemplate>
@@ -122,9 +128,9 @@
                 </ListBox>
 
                 <TextBlock Text="{DynamicResource INFO_NO_CONFIG}"
-                           FontFamily="{StaticResource PTSans Bold}"
                            FontSize="14"
-                           Padding="5">
+                           Padding="5"
+                           FontWeight="DemiBold">
                     <TextBlock.Resources>
                         <Style TargetType="TextBlock">
                             <Style.Triggers>
@@ -153,139 +159,82 @@
                     </Button>
 
                     <!-- Grid Row 1 -->
-                    <TabControl Grid.Row="1">
-                        <TabItem>
-                            <TabItem.Header>
-                                <TextBlock Text="{DynamicResource TI_HEADER_STAT}"
-                                           FontFamily="{StaticResource PTSans}" />
-                            </TabItem.Header>
-                            <Grid>
-                                <TextBlock Text="{DynamicResource LBL_STATS_DEACT}"
-                                           FontFamily="{StaticResource PTSans Bold}"
+                    <GroupBox Grid.Row="1">
+                        <GroupBox.Header>
+                            <TextBlock Text="{DynamicResource TI_HEADER_STAT}" />
+                        </GroupBox.Header>
+                        <Grid Margin="2">
+                            <TextBlock Text="{DynamicResource LBL_STATS_DEACT}"
                                            TextWrapping="WrapWithOverflow">
-                                    <TextBlock.Style>
-                                        <Style TargetType="TextBlock">
-                                            <Setter Property="Visibility" Value="Collapsed"/>
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding Settings.TimerInterval}" Value="0">
-                                                    <Setter Property="Visibility" Value="Visible" />
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </TextBlock.Style>
-                                </TextBlock>
-                                <Grid>
-                                    <Grid.Resources>
-                                        <Style TargetType="TextBlock">
-                                            <Setter Property="FontFamily" Value="{StaticResource PTSans}" />
-                                        </Style>
-                                        <Style x:Key="ValueTB" TargetType="TextBlock">
-                                            <Setter Property="Margin" Value="5 0 0 0" />
-                                        </Style>
-                                        <Style TargetType="Grid">
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding Settings.TimerInterval}" Value="0">
-                                                    <Setter Property="Visibility" Value="Collapsed" />
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Grid.Resources>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                    </Grid.RowDefinitions>
-
-                                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Public Key"/>
-                                    <TextBlock Grid.Column="1" Grid.Row="0" Style="{StaticResource ValueTB}" Text="{Binding Selected.Statistics.PublicKey, FallbackValue=KEY}" />
-
-                                    <TextBlock Grid.Column="0" Grid.Row="1" Text="Listening Port"/>
-                                    <TextBlock Grid.Column="1" Grid.Row="1" Style="{StaticResource ValueTB}" Text="{Binding Selected.Statistics.ListeningPort, FallbackValue=PORT}" />
-
-                                    <TextBlock Grid.Column="0" Grid.Row="2" Text="Peer"/>
-                                    <TextBlock Grid.Column="1" Grid.Row="2" Style="{StaticResource ValueTB}" Text="{Binding Selected.Statistics.Peer, FallbackValue=PEER}" />
-
-                                    <TextBlock Grid.Column="0" Grid.Row="3" Text="Endpoint"/>
-                                    <TextBlock Grid.Column="1" Grid.Row="3" Style="{StaticResource ValueTB}" Text="{Binding Selected.Statistics.Endpoint, FallbackValue=ENDPOINT}" />
-
-                                    <TextBlock Grid.Column="0" Grid.Row="4" Text="Allowed IPs"/>
-                                    <TextBlock Grid.Column="1" Grid.Row="4" Style="{StaticResource ValueTB}" Text="{Binding Selected.Statistics.AllowedIPs, FallbackValue=IPS}" />
-
-                                    <TextBlock Grid.Column="0" Grid.Row="5" Text="Latest Handshake"/>
-                                    <TextBlock Grid.Column="1" Grid.Row="5" Style="{StaticResource ValueTB}" Text="{Binding Selected.Statistics.LatestHandshake, FallbackValue=HANDSHAKE}" />
-
-                                    <TextBlock Grid.Column="0" Grid.Row="6" Text="Transfer"/>
-                                    <TextBlock Grid.Column="1" Grid.Row="6" Style="{StaticResource ValueTB}" Text="{Binding Selected.Statistics.Transfer, FallbackValue=TRANSFER}" />
-                                </Grid>
-                            </Grid>
-                        </TabItem>
-                        <TabItem>
-                            <TabItem.Header>
-                                <TextBlock Text="{DynamicResource TI_HEADER_LOG}"
-                                           FontFamily="{StaticResource PTSans}" />
-                            </TabItem.Header>
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Settings.TimerInterval}" Value="0">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
                             <Grid>
+                                <Grid.Resources>
+                                    <Style x:Key="ValueTB" TargetType="TextBlock">
+                                        <Setter Property="Margin" Value="5 0 0 0" />
+                                    </Style>
+                                    <Style TargetType="Grid">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Settings.TimerInterval}" Value="0">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Grid.Resources>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="26px"/>
-                                    <RowDefinition />
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
 
-                                <StackPanel Orientation="Horizontal" Margin="0,3">
-                                    <Button Command="{Binding RefreshLog}">
-                                        <Button.Content>
-                                            <fa5:FontAwesome Icon="Solid_Sync" Margin="1" Foreground="Green"/>
-                                        </Button.Content>
-                                    </Button>
-                                </StackPanel>
+                                <TextBlock Grid.Column="0" Grid.Row="0" Text="Public Key"/>
+                                <TextBlock Grid.Column="1" Grid.Row="0" Style="{StaticResource ValueTB}" Text="{Binding Selected.Statistics.PublicKey, FallbackValue=KEY}" />
 
-                                <TabControl Grid.Row="1">
-                                    <TabControl.Resources>
-                                        <Style TargetType="RichTextBox">
-                                            <Setter Property="IsReadOnly" Value="True" />
-                                            <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
-                                        </Style>
-                                    </TabControl.Resources>
-                                    <TabItem>
-                                        <TabItem.Header>
-                                            <TextBlock Text="{DynamicResource TI_LOG_CLIENT}"
-                                                       FontFamily="{StaticResource PTSans}" />
-                                        </TabItem.Header>
-                                        <RichTextBox ap:Log2FlowDocument.Content="{Binding ClientLog}" />
-                                    </TabItem>
-                                    <TabItem>
-                                        <TabItem.Header>
-                                            <TextBlock Text="{DynamicResource TI_LOG_SERVICE}"
-                                                       FontFamily="{StaticResource PTSans}" />
-                                        </TabItem.Header>
-                                        <RichTextBox ap:Log2FlowDocument.Content="{Binding ServerLog}" />
-                                    </TabItem>
-                                    <TabItem>
-                                        <TabItem.Header>
-                                            <TextBlock Text="{DynamicResource TI_LOG_TUNNEL}"
-                                                       FontFamily="{StaticResource PTSans}" />
-                                        </TabItem.Header>
-                                        <RichTextBox ap:WgLog2FlowDocument.Content="{Binding WireguardLog}" />
-                                    </TabItem>
-                                </TabControl>
+                                <TextBlock Grid.Column="0" Grid.Row="1" Text="Listening Port"/>
+                                <TextBlock Grid.Column="1" Grid.Row="1" Style="{StaticResource ValueTB}" Text="{Binding Selected.Statistics.ListeningPort, FallbackValue=PORT}" />
+
+                                <TextBlock Grid.Column="0" Grid.Row="2" Text="Peer"/>
+                                <TextBlock Grid.Column="1" Grid.Row="2" Style="{StaticResource ValueTB}" Text="{Binding Selected.Statistics.Peer, FallbackValue=PEER}" />
+
+                                <TextBlock Grid.Column="0" Grid.Row="3" Text="Endpoint"/>
+                                <TextBlock Grid.Column="1" Grid.Row="3" Style="{StaticResource ValueTB}" Text="{Binding Selected.Statistics.Endpoint, FallbackValue=ENDPOINT}" />
+
+                                <TextBlock Grid.Column="0" Grid.Row="4" Text="Allowed IPs"/>
+                                <TextBlock Grid.Column="1" Grid.Row="4" Style="{StaticResource ValueTB}" Text="{Binding Selected.Statistics.AllowedIPs, FallbackValue=IPS}" />
+
+                                <TextBlock Grid.Column="0" Grid.Row="5" Text="Latest Handshake"/>
+                                <TextBlock Grid.Column="1" Grid.Row="5" Style="{StaticResource ValueTB}" Text="{Binding Selected.Statistics.LatestHandshake, FallbackValue=HANDSHAKE}" />
+
+                                <TextBlock Grid.Column="0" Grid.Row="6" Text="Transfer"/>
+                                <TextBlock Grid.Column="1" Grid.Row="6" Style="{StaticResource ValueTB}" Text="{Binding Selected.Statistics.Transfer, FallbackValue=TRANSFER}" />
+
                             </Grid>
-                        </TabItem>
-                    </TabControl>
+                        </Grid>
+                    </GroupBox>
                 </Grid>
             </Grid>
 
             <!-- Gid Row 2-->
             <StatusBar Grid.Row="2">
                 <StatusBarItem HorizontalAlignment="Left">
-                    <TextBlock FontFamily="{StaticResource PTSans}" 
-                               Text="{Binding Version}"/>
+                    <TextBlock Text="{Binding Version}"/>
                 </StatusBarItem>
                 <StatusBarItem HorizontalAlignment="Center"
                                Visibility="{Binding Settings.LogLevel, Converter={StaticResource LL2Vconverter}}">
@@ -357,7 +306,6 @@
                     <TextBlock Margin="5 0 0 0"
                                Text="{DynamicResource LBL_CONNECTING}"
                                VerticalAlignment="Center"
-                               FontFamily="{StaticResource PTSans Narrow Bold}"
                                FontSize="20"
                                />
                 </StackPanel>

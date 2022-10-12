@@ -13,6 +13,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WireGuard.Core;
+using WireGuard.Core.ViewModels;
+using WireGuard.GUI.Classes;
 using WireGuard.GUI.ViewModels;
 
 namespace WireGuard.GUI
@@ -27,13 +30,13 @@ namespace WireGuard.GUI
         /// <summary>
         /// Constructor
         /// </summary>
-        public MainWindow()
+        public MainWindow(Client client, SettingsViewModel settings)
         {
             Application.Current.DispatcherUnhandledException += DispatchUnhandledException;
 
             InitializeComponent();
 
-            mvm = new MainViewModel(this);
+            mvm = new MainViewModel(this, client, settings);
             mvm.ErrorOccured += ErrorOccured;
 
             DataContext = mvm;
@@ -65,7 +68,7 @@ namespace WireGuard.GUI
             return true;
 #endif
 
-            ServiceController services = ServiceController.GetServices().FirstOrDefault(x => x.ServiceName == Core.Path.WIREGUARD_GUI_SERVICE);
+            ServiceController services = ServiceController.GetServices().FirstOrDefault(x => x.ServiceName == Core.Classes.Path.WIREGUARD_GUI_SERVICE);
 
             if(services == null)
                 return false;
@@ -86,7 +89,7 @@ namespace WireGuard.GUI
                 mvm.ConnectAsync();
             else
             {
-                Core.LogManager.Error($"Service {Core.Path.WIREGUARD_GUI_SERVICE} not runnig or not installed.");
+                Core.LogManager.Error($"Service {Core.Classes.Path.WIREGUARD_GUI_SERVICE} not runnig or not installed.");
                 MessageBox.Show(Res.GetStr("LBL_SERVICE_ERROR"));
             }
         }

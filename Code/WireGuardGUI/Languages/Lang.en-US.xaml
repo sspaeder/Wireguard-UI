@@ -19,6 +19,8 @@
     <sys:String x:Key="LBL_SET_DEF_CONF">Default Config-File</sys:String>
     <sys:String x:Key="LBL_SET_RESTORE">Restore session</sys:String>
 
+    <sys:String x:Key="LBL_DELETE_WINDOW">Delete config</sys:String>
+
     <sys:String x:Key="TI_LOG_CLIENT">Clientlog</sys:String>
     <sys:String x:Key="TI_LOG_SERVICE">Servicelog</sys:String>
     <sys:String x:Key="TI_LOG_TUNNEL">Tunnellog</sys:String>
@@ -45,14 +47,23 @@
     <sys:String x:Key="BTN_FILE_IMPORT">Import from file</sys:String>
 
     <sys:String x:Key="WIN_SETTINGS">Settings</sys:String>
+    <sys:String x:Key="WIN_LOGS">Logs</sys:String>
     
     <sys:String x:Key="TI_HEADER_STAT">Statistics</sys:String>
     <sys:String x:Key="TI_HEADER_LOG">Log</sys:String>
+
+    <sys:String x:Key="LBL_DB_SUCCESS">Success</sys:String>
+    <sys:String x:Key="LBL_EXPORT_SUCCESS">File succesfully exportet!</sys:String>
+    
+    <!-- ToolTips -->
+    <sys:String x:Key="TT_LOG_WIN">Open log window</sys:String>
+    <sys:String x:Key="TT_EXPORT">Export log files</sys:String>
 
     <!-- Info messages -->
     <sys:String x:Key="INFO_NO_CONFIG">No configurations available</sys:String>
     <sys:String x:Key="INFO_NO_WORK">No active tunnel</sys:String>
     <sys:String x:Key="INFO_VPN_STILL_RUNNING">The VPN is still running</sys:String>
+    <sys:String x:Key="QST_DELETE_CONFIG">Do you want to delete this config?</sys:String>
     
     <!-- Error messages -->
     <sys:String x:Key="ERR_GENERIC">An error has been occured.</sys:String>

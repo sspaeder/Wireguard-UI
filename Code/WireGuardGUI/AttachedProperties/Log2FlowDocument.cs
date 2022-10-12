@@ -115,6 +115,12 @@ namespace WireGuard.GUI.AttachedProperties
         /// <param name="text"></param>
         public void SetText(string text)
         {
+            if (String.IsNullOrEmpty(text))
+            {
+                document.Blocks.Clear();
+                return;
+            }
+                
             cache = text;
             ReadOnlySpan<char> chars = new ReadOnlySpan<char>(cache.ToArray());
 

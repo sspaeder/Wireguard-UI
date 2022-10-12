@@ -1,6 +1,7 @@
 ﻿using System.Text.Json;
+using WireGuard.Core.Messages;
 
-namespace WireGuard.Core.Messages
+namespace WireGuard.Core
 {
     /// <summary>
     /// Class for the commands that can be exchanged
@@ -46,7 +47,8 @@ namespace WireGuard.Core.Messages
                 return JsonSerializer.Deserialize<LogContentMessage>(json);
             else if (json.Contains("\"Type\":\"plugin\""))
                 return JsonSerializer.Deserialize<PlugInMessage>(json);
-
+            else if (json.Contains("\"Type\":\"export\""))
+                return JsonSerializer.Deserialize<ExportMessage>(json);
 
             //If no match is found
             return null;

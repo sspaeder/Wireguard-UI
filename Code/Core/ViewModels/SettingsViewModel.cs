@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.DirectoryServices;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,45 +15,9 @@ namespace WireGuard.Core.ViewModels
         #region Variables
 
         /// <summary>
-        /// 
-        /// </summary>
-        static SettingsViewModel current;
-
-        /// <summary>
         /// Variable for the start on boot setting
         /// </summary>
         bool startOnBoot;
-
-        /// <summary>
-        /// Variabel for the start on logon setting
-        /// </summary>
-        bool startOnLogon;
-
-        #endregion
-
-        #region Static Methods
-
-        /// <summary>
-        /// Method to load the settings
-        /// </summary>
-        /// <returns></returns>
-        public static SettingsViewModel LoadSettings() => System.Text.Json.JsonSerializer.Deserialize<SettingsViewModel>(System.IO.File.ReadAllText(Path.SETTINGS));
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="settings"></param>
-        public static void SetCurrentSettings(SettingsViewModel settings)
-        {
-            if (current == null)
-                current = settings;
-        }
-
-        /// <summary>
-        /// Method returns the current <see cref="SettingsViewModel"/>
-        /// </summary>
-        /// <returns><see cref="SettingsViewModel"/></returns>
-        public static SettingsViewModel GetCurrent() => current;
 
         #endregion
 
@@ -67,7 +32,12 @@ namespace WireGuard.Core.ViewModels
             StartOnBoot = this.StartOnBoot,
             StartConfigName = this.StartConfigName,
             DefaultConfig = this.DefaultConfig,
-            RestoreSession = this.RestoreSession
+            RestoreSession = this.RestoreSession,
+            UserAvailableSettings = this.UserAvailableSettings,
+            LogLevel = this.LogLevel,
+            RunInKioskMode = this.RunInKioskMode,
+            TimerInterval = this.TimerInterval,
+            WgIpcApi = this.WgIpcApi
         };
 
         /// <summary>

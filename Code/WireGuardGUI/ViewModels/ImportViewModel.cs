@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using WireGuard.Core;
+using WireGuard.Core.Classes;
 using WireGuard.Core.Messages;
 using WireGuard.Core.PlugIn;
 using WireGuard.Core.ViewModels;
+using WireGuard.GUI.Classes;
 using WireGuard.GUI.Pages;
 using WireGuard.GUI.Windows;
 

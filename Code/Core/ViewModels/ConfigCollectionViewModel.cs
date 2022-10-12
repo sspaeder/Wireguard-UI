@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -36,14 +37,21 @@ namespace WireGuard.Core.ViewModels
         Client client;
 
         /// <summary>
+        /// Settings to apply
+        /// </summary>
+        SettingsViewModel settings;
+
+        /// <summary>
         /// Construcotr
         /// </summary>
         /// <param name="client">client to communicate with ther service</param>
-        public ConfigCollectionViewModel(Client client)
+        public ConfigCollectionViewModel(Client client, SettingsViewModel settings)
         {
             //Initialize data
             Configs = new ObservableCollection<ConfigViewModel>();
             this.client = client;
+            this.settings = settings;
+            settings.PropertyChanged += SettingsChanged;
         }
 
         /// <summary>
@@ -88,7 +96,7 @@ namespace WireGuard.Core.ViewModels
         /// <param name="name">Name of the configuration to be added</param>
         public void Add(string name)
         {
-            ConfigViewModel cvm = new ConfigViewModel(this, client, name) { TimerInterval = SettingsViewModel.GetCurrent().TimerInterval };
+            ConfigViewModel cvm = new ConfigViewModel(this, client, name) { TimerInterval = settings.TimerInterval };
             cvm.ErrorOccured += Config_ErrorOccured;
             cvm.StatusChanged += Config_StatusChanged;
             Configs.Add(cvm);
@@ -127,6 +135,17 @@ namespace WireGuard.Core.ViewModels
         /// <param name="status">The new status of the config</param>
         private void Config_StatusChanged(ConfigViewModel sender, ConfigClientStatus status) => ConfigStatusChanged?.Invoke(sender, status);
 
+        /// <summary>
+        /// Method to observ if a settings value has changed
+        /// </summary>
+        private void SettingsChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(settings.TimerInterval))
+            {
+                foreach (ConfigViewModel cvm in Configs)
+                    cvm.TimerInterval = settings.TimerInterval;
+            }
+        }
 
         /// <summary>
         /// Gets an sorted list of all loaded configurations

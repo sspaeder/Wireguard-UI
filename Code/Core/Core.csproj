@@ -5,14 +5,14 @@
     <AssemblyName>Core</AssemblyName>
     <RootNamespace>WireGuard.Core</RootNamespace>
     <UseWPF>true</UseWPF>
-    <Authors>RHRK</Authors>
+    <Authors>Sebastian Späder</Authors>
     <Product>Core</Product>
-    <Company>TU Kaiserslautern</Company>
-    <Copyright>Copyright © TU Kaiserslautern</Copyright>
-    <PackageProjectUrl>https://www.rhrk.uni-kl.de/</PackageProjectUrl>
-    <AssemblyVersion>1.1.0.0</AssemblyVersion>
-    <FileVersion>1.1.0.0</FileVersion>
-    <Version>1.1.0</Version>
+    <Company></Company>
+    <Copyright></Copyright>
+    <PackageProjectUrl></PackageProjectUrl>
+    <AssemblyVersion>1.1.2.0</AssemblyVersion>
+    <FileVersion>1.1.2.0</FileVersion>
+    <Version>1.1.2</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -20,8 +20,12 @@
     <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>portable</DebugType>
+  </PropertyGroup>
+
   <ItemGroup>
-    <PackageReference Include="NamedPipeServerStream.NetFrameworkVersion" Version="1.1.8" />
+    <PackageReference Include="NamedPipeServerStream.NetFrameworkVersion" Version="1.1.11" />
     <PackageReference Include="System.IO.Pipes.AccessControl" Version="5.0.0" />
   </ItemGroup>
 

@@ -4,7 +4,7 @@ using System.Windows;
 using WireGuard.Core;
 using WireGuard.Core.PlugIn;
 
-namespace WireGuard.GUI
+namespace WireGuard.GUI.Classes
 {
     /// <summary>
     /// Class for the Plugin context
@@ -104,7 +104,7 @@ namespace WireGuard.GUI
             {
                 Source = new System.Uri(uriStr)
             };
-            
+
             Application.Current.Resources.MergedDictionaries.Add(dictionary);
         }
 

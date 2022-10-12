@@ -21,7 +21,7 @@ namespace WireGuard.GUI.Converter
 
             //if value is not a string, return null
             if (data == null)
-                return null;
+                return Visibility.Hidden;
 
             //If the star is existent or the length is 0, show all
             if (data.Contains("*") || data.Length == 0)

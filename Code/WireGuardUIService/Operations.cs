@@ -8,9 +8,10 @@ using System.Net.NetworkInformation;
 using System.Security.AccessControl;
 using System.ServiceProcess;
 using WireGuard.Core;
+using WireGuard.Core.Classes;
 using WireGuard.Core.Messages;
 using WireGuard.WireGuardUIService.Classes;
-using Path = WireGuard.Core.Path;
+using Path = WireGuard.Core.Classes.Path;
 
 namespace WireGuard.WireGuardUIService
 {
@@ -20,11 +21,6 @@ namespace WireGuard.WireGuardUIService
     public static class Operations
     {
         #region Variables
-
-        /// <summary>
-        /// Variable for the observing
-        /// </summary>
-        static ManagementEventWatcher logonWatcher;
 
         /// <summary>
         /// IPC Interface for the Wireguard tunnel
@@ -334,14 +330,6 @@ namespace WireGuard.WireGuardUIService
                 if(tunnel != spareTunnel)
                     Operations.StopTunnel(tunnel);
             }
-        }
-
-        /// <summary>
-        /// Method to stop the watcher
-        /// </summary>
-        public static void StopLogonWatch()
-        {
-            logonWatcher?.Stop();
         }
 
         /// <summary>
